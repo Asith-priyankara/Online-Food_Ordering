@@ -40,17 +40,6 @@ public class IngredientController {
                 body(ingredientCategory);
     }
 
-    @PostMapping("")
-    public ResponseEntity<IngredientsItem> createIngredientItem(
-            @RequestBody CreateIngredientItemRequest createIngredientItemRequest,
-            @RequestHeader("Authentication") String jwt
-    ) throws Exception {
-        IngredientsItem ingredientsItem = ingredientService.createIngredientsItem(createIngredientItemRequest.getRestaurantId(), createIngredientItemRequest.getIngredientName(), createIngredientItemRequest.getCategoryId());
-        return ResponseEntity.
-                status(HttpStatus.CREATED).
-                body(ingredientsItem);
-    }
-
     @PutMapping("/{id}/stock")
     public ResponseEntity<Message> updateIngredientStock(
             @RequestHeader("Authentication") String jwt,
@@ -63,7 +52,7 @@ public class IngredientController {
                 body(message);
     }
 
-    @GetMapping("/restaurant/{id}")
+    @GetMapping("/restaurant/{id}/ingredients")
     public ResponseEntity<List<IngredientsItem>> getRestaurantIngredients(
             @PathVariable Long id
     ) throws Exception {
