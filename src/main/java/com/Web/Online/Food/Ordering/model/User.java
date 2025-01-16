@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-//@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
