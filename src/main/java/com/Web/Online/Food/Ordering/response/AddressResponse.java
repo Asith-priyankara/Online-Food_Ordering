@@ -1,27 +1,20 @@
-package com.Web.Online.Food.Ordering.model;
+package com.Web.Online.Food.Ordering.response;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-
-@Entity
-public class Address {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class AddressResponse {
     private Long id;
-
     private String street;
     private String city;
     private String state;
     private String zipCode;
 
-    // Relationship with User
-    @ManyToOne
-    private User user;
+    public AddressResponse(Long id, String street, String city, String state, String zipCode) {
+        this.id = id;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+    }
 
-    // Getters and setters
     public Long getId() {
         return id;
     }
@@ -60,13 +53,5 @@ public class Address {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }

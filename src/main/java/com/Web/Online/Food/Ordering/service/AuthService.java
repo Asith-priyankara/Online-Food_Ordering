@@ -7,6 +7,7 @@ import com.Web.Online.Food.Ordering.model.User;
 import com.Web.Online.Food.Ordering.repository.CartRepository;
 import com.Web.Online.Food.Ordering.repository.UserRepository;
 import com.Web.Online.Food.Ordering.request.LoginRequest;
+import com.Web.Online.Food.Ordering.request.PasswordChangeRequest;
 import com.Web.Online.Food.Ordering.response.AuthResponse;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -100,4 +101,27 @@ public class AuthService {
         }
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
+
+    public AuthResponse changePassword(User user, PasswordChangeRequest passwordChangeRequest) throws Exception {
+
+        if (!passwordEncoder.matches(passwordChangeRequest.getCurrentPassword(), user.getPassword())) {
+            throw new BadCredentialsException("Current password is incorrect");
+        }
+        String encodedNewPassword = passwordEncoder.encode(passwordChangeRequest.getNewPassword());
+        user.setPassword(encodedNewPassword);
+        userRepository.save(user);
+
+        Authentication authentication = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String jwt = jwtProvider.generateToken(authentication);
+
+        AuthResponse authResponse = new AuthResponse();
+        authResponse.setJwt(jwt);
+        authResponse.setMessage("Password changed successfully");
+        authResponse.setRole(user.getRole());
+
+        return authResponse;
+    }
+
 }

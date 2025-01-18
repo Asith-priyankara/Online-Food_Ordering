@@ -38,6 +38,8 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Address> addresses = new ArrayList<>();
 
+    private String phone;
+
     private Boolean status;
 
     public Long getId() {
@@ -110,5 +112,13 @@ public class User {
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
