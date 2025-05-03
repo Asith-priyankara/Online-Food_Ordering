@@ -29,7 +29,7 @@ public class IngredientController {
         this.restaurantService = restaurantService;
     }
 
-    @PostMapping("")
+    @PostMapping("/admin/ingredient-category")
     public ResponseEntity<IngredientCategory> createIngredientCategory(
             @RequestBody CreateIngredientCategoryRequest createIngredientCategoryRequest,
             @RequestHeader("Authentication") String jwt

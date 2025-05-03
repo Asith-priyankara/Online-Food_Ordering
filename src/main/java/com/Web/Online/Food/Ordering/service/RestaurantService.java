@@ -41,8 +41,8 @@ public class RestaurantService {
         restaurant.setImages(req.getImages());
         restaurant.setRegistrationDate(LocalDateTime.now());
 
-        restaurantRepository.save(restaurant);
         addressRepository.save(req.getAddress());
+        restaurantRepository.save(restaurant);
 
         return restaurant;
     }
@@ -63,6 +63,7 @@ public class RestaurantService {
         }
         if (updateRequest.getAddress() != null) {
             restaurant.setAddress(updateRequest.getAddress());
+            addressRepository.save(restaurant.getAddress());
         }
         if (updateRequest.getContactInformation() != null) {
             restaurant.setContactInformation(updateRequest.getContactInformation());

@@ -56,9 +56,9 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(addressList);
     }
 
-    @DeleteMapping("/address")
+    @DeleteMapping("/address/{id}")
     public ResponseEntity<List<AddressResponse>> deleteAddress (@RequestHeader("Authorization") String jwt,
-                                                  @RequestBody Long id ) throws Exception {
+                                                  @PathVariable Long id ) throws Exception {
         List<Address> addresses = userService.deleteAddress(jwt, id);
         List<AddressResponse> addressList = userService.mapAddressesToResponse(addresses);
 
